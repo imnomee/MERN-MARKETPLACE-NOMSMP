@@ -24,3 +24,4 @@ mongoose - for mongodb operations
 jsonwebtoken - json web token
 bcryptjs - password encryption and decryption
 cloudinary - for storing the images
+dotenv - to saving and working with env variables
