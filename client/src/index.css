@@ -25,5 +25,9 @@ input {
 }
 label,
 a {
-    font-weight: bold;
+    font-weight: bold !important;
+}
+
+button {
+    box-shadow: none !important;
 }

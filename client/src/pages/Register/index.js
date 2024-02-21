@@ -3,6 +3,13 @@ import { Form, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { Divider } from '../../components/Divider';
 
+const rules = [
+    {
+        required: true,
+        message: 'required',
+    },
+];
+
 export function Register() {
     const onFinish = (values) => {
         console.log('success', values);
@@ -15,16 +22,20 @@ export function Register() {
                 </h1>
                 <Divider />
                 <Form layout="vertical" onFinish={onFinish}>
-                    <Form.Item label="Name" name="name">
+                    <Form.Item label="Name" name="name" rules={rules}>
                         <Input placeholder="Name" />
                     </Form.Item>
-                    <Form.Item label="Email" name="email">
+                    <Form.Item label="Email" name="email" rules={rules}>
                         <Input placeholder="Email" />
                     </Form.Item>
-                    <Form.Item label="Password" name="password">
+                    <Form.Item label="Password" name="password" rules={rules}>
                         <Input type="password" placeholder="Password" />
                     </Form.Item>
-                    <Button type="primary" htmlType="submit" block>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        block
+                        className="mt-4">
                         Register
                     </Button>
                     <div className="mt-5 text-center">

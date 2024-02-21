@@ -1,0 +1,12 @@
+{
+  "name": "mern-marketplace-nomsmp",
+  "version": "1.0.0",
+  "description": "MARKETPLACE APP WITH MULTI VENDOR SUPPORT ADMIN PAGE ITEM UPDATE, DELETE, BID AND MESSAGE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
