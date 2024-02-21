@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { Link } from 'react-router-dom';
 import { Divider } from '../../components/Divider';
+import axios from 'axios';
 
 const rules = [
     {
@@ -10,9 +11,27 @@ const rules = [
     },
 ];
 
+const RegisterUser = async (values) => {
+    try {
+        const response = await axios.post('/api/users/register', values);
+        return response.data;
+    } catch (err) {
+        return err.message;
+    }
+};
+
 export function Register() {
-    const onFinish = (values) => {
-        console.log('success', values);
+    const onFinish = async (values) => {
+        try {
+            const response = await RegisterUser(values);
+            if (response.success) {
+                message.success(response.message);
+            } else {
+                throw new Error(response.message);
+            }
+        } catch (err) {
+            message.error(err.message);
+        }
     };
     return (
         <div className="h-screen bg-primary flex justify-center items-center">

@@ -9,3 +9,5 @@ connection.on('connected', () => {
 connection.on('error', (err) => {
     console.log('MongoDB connection failed');
 });
+
+module.exports = connection;
