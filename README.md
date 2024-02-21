@@ -19,3 +19,8 @@ axios - for permorming api calls
 react-router-dom - for routing
 redux, react-redux, @reduxjs/toolkit - for state management
 moment - for working with time and date
+express - for backend routing
+mongoose - for mongodb operations
+jsonwebtoken - json web token
+bcryptjs - password encryption and decryption
+cloudinary - for storing the images
