@@ -13,8 +13,12 @@ const rules = [
 
 const LoginUser = async (values) => {
     try {
-        const response = await axios.post('/api/users/login', values);
-        return response.data;
+        const { data } = await axios.post('/api/users/login', values, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return data;
     } catch (err) {
         return err.message;
     }
