@@ -4,6 +4,13 @@ MARKETPLACE APP WITH MULTI VENDOR SUPPORT
 ADMIN PAGE
 ITEM UPDATE, DELETE, BID AND MESSAGE
 
+REMIX ICONS:
+https://remixicon.com/
+CDN: '<link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>'
+
 Dependencies:
 create-react-app - for react front-end
 antd - https://ant.design/components/overview/
