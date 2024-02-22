@@ -1,15 +1,23 @@
 const express = require('express');
 const app = express();
-require('dotenv').config();
-const dbConfig = require('./config/dbConfig');
+require('./dbConnection');
 
-const usersRoute = require('./routes/userRoutes');
+// //DATABASE CONNECTION
+// const mongoose = require('mongoose');
+// require('dotenv').config();
+// mongoose.connect(process.env.MONGO_URI);
 
-app.use(express.json());
-app.use('/api/users', usersRoute);
+// const connection = mongoose.connection;
+// connection.on('connected', () => {
+//     console.log('MongoDB connection successful.');
+// });
+// connection.on('error', () => {
+//     console.log('DB connection failed');
+// });
 
-const port = process.env.PORT || 5000;
+//SERVER
+const port = process.env.PORT || 5000; //we are using 3000 for frontend
 
 app.listen(port, () => {
-    console.log('Server is running on: ', port);
+    console.log('Node Server is running on Port: ', port);
 });

@@ -46,7 +46,7 @@ export function Login() {
 
                     <div className="text-center mt-5">
                         <span className="text-gray-500">
-                            Don't have an account?
+                            Don't have an account?&nbsp;
                         </span>
                         <Link to="/register" className="text-secondary">
                             Register
@@ -87,7 +87,7 @@ export function Register() {
 
                     <div className="text-center mt-5">
                         <span className="text-gray-500">
-                            Already have an account?
+                            Already have an account?&nbsp;
                         </span>
                         <Link to="/login" className="text-secondary">
                             Login
