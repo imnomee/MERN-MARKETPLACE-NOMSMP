@@ -14,6 +14,9 @@ CDN: '<link
 Font:
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
 
+//connect the backend to frontend. Add following in the package.json at the end
+"proxy":"http://localhost:5000"
+
 Dependencies:
 create-react-app - for react front-end
 antd - https://ant.design/components/overview/

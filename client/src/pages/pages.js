@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { Link } from 'react-router-dom';
 import { Divider } from '../components/components';
+import { axiosInstance } from '../axiosInstance';
 
 //FORM VALIDATION RULES
 const rules = [
@@ -10,10 +11,6 @@ const rules = [
         message: 'required',
     },
 ];
-//ON FINISH FUNCTION FROM antd FOR VALUES AFTER SUBMIT
-const onFinish = (values) => {
-    console.log('success', values);
-};
 
 //HOME
 export function Home() {
@@ -21,7 +18,30 @@ export function Home() {
 }
 
 //LOGIN
+const LoginUser = async (payload) => {
+    try {
+        const response = await axiosInstance.post('/api/users/login', payload);
+        return response.data;
+    } catch (err) {
+        return err.message;
+    }
+};
 export function Login() {
+    //ON FINISH FUNCTION FROM antd FOR VALUES AFTER SUBMIT
+    const [form] = Form.useForm();
+    const onFinish = async (values) => {
+        try {
+            const response = await LoginUser(values);
+            if (response.success) {
+                message.success(response.message);
+                form.resetFields();
+            } else {
+                throw new Error(response.message);
+            }
+        } catch (err) {
+            message.error(err.message);
+        }
+    };
     return (
         <div className="h-screen bg-primary flex justify-center items-center ">
             <div className="bg-white p-5 rounded-xl w-[450px]">
@@ -29,7 +49,7 @@ export function Login() {
                     NOMS MP - <span className="text-gray-400">LOGIN</span>
                 </h1>
                 <Divider />
-                <Form layout="vertical" onFinish={onFinish}>
+                <Form form={form} layout="vertical" onFinish={onFinish}>
                     <Form.Item label="Email" name="email" rules={rules}>
                         <Input placeholder="Email..." />
                     </Form.Item>
@@ -59,7 +79,34 @@ export function Login() {
 }
 
 //REGISTER
+const RegisterUser = async (payload) => {
+    try {
+        const { data } = await axiosInstance.post(
+            '/api/users/register',
+            payload
+        );
+        return data;
+    } catch (err) {
+        return err.message;
+    }
+};
+
 export function Register() {
+    //ON FINISH FUNCTION FROM antd FOR VALUES AFTER SUBMIT
+    const [form] = Form.useForm();
+    const onFinish = async (values) => {
+        try {
+            const response = await RegisterUser(values);
+            if (response.success) {
+                message.success(response.message);
+                form.resetFields();
+            } else {
+                throw new Error(response.message);
+            }
+        } catch (err) {
+            message.error(err.message);
+        }
+    };
     return (
         <div className="h-screen bg-primary flex justify-center items-center ">
             <div className="bg-white p-5 rounded-xl w-[450px]">
@@ -67,7 +114,7 @@ export function Register() {
                     NOMS MP - <span className="text-gray-400">REGISTER</span>
                 </h1>
                 <Divider />
-                <Form layout="vertical" onFinish={onFinish}>
+                <Form form={form} layout="vertical" onFinish={onFinish}>
                     <Form.Item label="Name" name="name" rules={rules}>
                         <Input placeholder="Name..." />
                     </Form.Item>
