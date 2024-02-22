@@ -9,11 +9,14 @@ root.render(
     <React.StrictMode>
         <ConfigProvider
             theme={{
-                components: {},
+                components: {
+                    // Button: {
+                    //     colorPrimary: '#40513B',
+                    // },
+                },
                 token: {
-                    borderRadius: '2px',
                     colorPrimary: '#40513B',
-                    colorPrimaryHover: '#40713B',
+                    borderRadius: '2px',
                 },
             }}>
             <App />
