@@ -2,6 +2,7 @@ const router = require('express').Router();
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { auth } = require('../middlewares/middlewares');
 
 //New User Registeration
 router.post('/register', async (req, res) => {
@@ -35,7 +36,6 @@ router.post('/register', async (req, res) => {
 
 //Login User
 router.post('/login', async (req, res) => {
-    console.log('login working');
     try {
         //check if user exists by email
         const user = await User.findOne({ email: req.body.email });
@@ -53,9 +53,10 @@ router.post('/login', async (req, res) => {
         }
 
         //generate token and send it with response
-        const token = await jwt.sign(
-            { userId: user._id },
-            process.env.JWT_SECRET
+        const token = jwt.sign(
+            { userId: user._id, isAdmin: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' }
         );
 
         //login user
@@ -70,6 +71,19 @@ router.post('/login', async (req, res) => {
             success: false,
             message: err.message,
         });
+    }
+});
+
+router.get('/get-current-user', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.body.userId);
+        return res.json({
+            success: true,
+            message: 'User Fetched successfully',
+            data: user,
+        });
+    } catch (err) {
+        return res.json({ success: false, message: err.message });
     }
 });
 

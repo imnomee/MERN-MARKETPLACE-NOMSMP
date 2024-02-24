@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, message } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Divider } from '../components/components';
 import { axiosInstance } from '../axiosInstance';
 
@@ -34,6 +34,7 @@ export function Login() {
             const response = await LoginUser(values);
             if (response.success) {
                 message.success(response.message);
+                localStorage.setItem('token', response.token);
                 form.resetFields();
             } else {
                 throw new Error(response.message);
@@ -145,3 +146,59 @@ export function Register() {
         </div>
     );
 }
+//Protect Pages
+export function ProtectedPage({ children }) {
+    const navigate = useNavigate();
+    const [user, setUser] = React.useState(null);
+
+    const validateToken = async () => {
+        try {
+            const response = await GetCurrentUser();
+
+            if (!response.success) {
+                throw new Error(response.message);
+            }
+
+            setUser(response.data);
+        } catch (error) {
+            navigate('/login');
+            message.error(error.message);
+        }
+    };
+    React.useEffect(() => {
+        if (localStorage.getItem('token')) {
+            validateToken();
+        } else {
+            message.error('Please Login to continue');
+            navigate('/login');
+        }
+    }, []);
+    return (
+        <div>
+            {user && (
+                <div>
+                    {user.name}
+                    {children}
+                    <Button
+                        onClick={() => {
+                            localStorage.clear('token');
+                            navigate('/login');
+                        }}
+                        type="secondary">
+                        Sign Out
+                    </Button>
+                </div>
+            )}
+        </div>
+    );
+}
+
+//Get Current user
+export const GetCurrentUser = async () => {
+    try {
+        const response = await axiosInstance.get('/api/users/get-current-user');
+        return response.data;
+    } catch (err) {
+        return err.message;
+    }
+};
