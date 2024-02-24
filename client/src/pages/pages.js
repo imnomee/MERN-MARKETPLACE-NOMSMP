@@ -146,52 +146,6 @@ export function Register() {
         </div>
     );
 }
-//Protect Pages
-export function ProtectedPage({ children }) {
-    const navigate = useNavigate();
-    const [user, setUser] = React.useState(null);
-
-    const validateToken = async () => {
-        try {
-            const response = await GetCurrentUser();
-
-            if (!response.success) {
-                throw new Error(response.message);
-            }
-
-            setUser(response.data);
-        } catch (error) {
-            navigate('/login');
-            message.error(error.message);
-        }
-    };
-    React.useEffect(() => {
-        if (localStorage.getItem('token')) {
-            validateToken();
-        } else {
-            message.error('Please Login to continue');
-            navigate('/login');
-        }
-    }, []);
-    return (
-        <div>
-            {user && (
-                <div>
-                    {user.name}
-                    {children}
-                    <Button
-                        onClick={() => {
-                            localStorage.clear('token');
-                            navigate('/login');
-                        }}
-                        type="secondary">
-                        Sign Out
-                    </Button>
-                </div>
-            )}
-        </div>
-    );
-}
 
 //Get Current user
 export const GetCurrentUser = async () => {

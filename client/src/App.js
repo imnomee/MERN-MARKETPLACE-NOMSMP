@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home, Login, ProtectedPage, Register } from './pages/pages';
+import { Home, Login, Register } from './pages/pages';
+import { ProtectedPage } from './components/components';
 function App() {
     return (
         <div>
