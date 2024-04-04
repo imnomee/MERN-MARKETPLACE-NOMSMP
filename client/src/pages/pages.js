@@ -29,6 +29,7 @@ const LoginUser = async (payload) => {
 export function Login() {
     //ON FINISH FUNCTION FROM antd FOR VALUES AFTER SUBMIT
     const [form] = Form.useForm();
+    const navigate = useNavigate();
     const onFinish = async (values) => {
         try {
             const response = await LoginUser(values);
@@ -36,6 +37,7 @@ export function Login() {
                 message.success(response.message);
                 localStorage.setItem('token', response.token);
                 form.resetFields();
+                navigate('/');
             } else {
                 throw new Error(response.message);
             }

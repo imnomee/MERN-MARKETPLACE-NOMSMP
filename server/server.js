@@ -4,7 +4,7 @@ require('./dbConnection'); //BRING THE DB CONNECTION
 app.use(express.json());
 
 //ROUTES
-const userRoutes = require('./routes/user.route');
+const userRoutes = require('./files/user.route');
 app.use('/api/users', userRoutes);
 
 //SERVER
